@@ -1,0 +1,13 @@
+# IntelliJ
+out/
+.idea
+*.iml
+*.ipr
+*.iws
+*.sc
+
+# mac
+.DS_Store
+
+# sbt
+target/
