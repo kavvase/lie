@@ -83,3 +83,15 @@ object LieAlgebra {
   }
 
 }
+
+trait LieAlgebraSyntax {
+
+  implicit class LieAlgebraOps[G <: Lie](g: G)(implicit algebra: LieAlgebra[G]) {
+
+    def rank: Int = algebra.rank(g)
+
+    def cartan: Matrix[Int] = algebra.cartan(g)
+
+  }
+
+}
