@@ -2,13 +2,13 @@ package kavvase.lie.core
 
 sealed trait Lie
 
-case class A(n: Int) extends Lie
+case class A(n: Int) extends Lie { require(n >= 1) }
 
-case class B(n: Int) extends Lie
+case class B(n: Int) extends Lie { require(n >= 3) }
 
-case class C(n: Int) extends Lie
+case class C(n: Int) extends Lie { require(n >= 2) }
 
-case class D(n: Int) extends Lie
+case class D(n: Int) extends Lie { require(n >= 4) }
 
 case object E6 extends Lie
 

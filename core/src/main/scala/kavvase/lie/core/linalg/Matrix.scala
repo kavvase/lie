@@ -1,10 +1,16 @@
 package kavvase.lie.core.linalg
 
-import scalaz.Functor
+import scalaz.{Equal, Functor}
 
 case class Matrix[A](rows: List[List[A]])
 
 object Matrix {
+
+  implicit def MatrixEqual[A](implicit e: Numeric[A]): Equal[Matrix[A]] = new Equal[Matrix[A]] {
+
+    def equal(a1: Matrix[A], a2: Matrix[A]): Boolean = a1.rows == a2.rows
+
+  }
 
   implicit object MatrixFunctor extends Functor[Matrix] {
 

@@ -1,6 +1,6 @@
 package kavvase.lie.core.linalg
 
-import scalaz.Functor
+import scalaz.{Equal, Functor}
 
 sealed trait Vector[A] {
   val components: List[A]
@@ -11,6 +11,18 @@ case class RowVector[A](components: List[A]) extends Vector[A]
 case class ColVector[A](components: List[A]) extends Vector[A]
 
 object Vector {
+
+  implicit def RowVectorEqual[A](implicit e: Numeric[A]): Equal[RowVector[A]] = new Equal[RowVector[A]] {
+
+    def equal(a1: RowVector[A], a2: RowVector[A]): Boolean = a1.components == a2.components
+
+  }
+
+  implicit def ColVectorEqual[A](implicit e: Numeric[A]): Equal[ColVector[A]] = new Equal[ColVector[A]] {
+
+    def equal(a1: ColVector[A], a2: ColVector[A]): Boolean = a1.components == a2.components
+
+  }
 
   implicit object RowVectorFunctor extends Functor[RowVector] {
 
