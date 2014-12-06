@@ -1,5 +1,7 @@
 package kavvase.lie.core
 
+import kavvase.lie.core.linalg.Matrix
+
 trait LieAlgebra[G <: Lie] {
 
   def rank(g: G): Int
