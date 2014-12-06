@@ -20,14 +20,14 @@ trait MatrixSyntax {
 
     import scala.math.Numeric.Implicits._
 
-    def +(rhs: Matrix[A]) = {
+    def +(rhs: Matrix[A]): Matrix[A] = {
       require(lhs.rows.map(_.length) == rhs.rows.map(_.length), s"Size does not match between $lhs and $rhs.")
       Matrix((lhs.rows, rhs.rows).zipped.map((l, r) => (l, r).zipped.map(_ + _)))
     }
 
-    def -(rhs: Matrix[A]) = - rhs + lhs
+    def -(rhs: Matrix[A]): Matrix[A] = - rhs + lhs
 
-    def unary_-() = Matrix(lhs.rows.map(_.map(-_)))
+    def unary_-(): Matrix[A] = Matrix(lhs.rows.map(_.map(-_)))
 
   }
 
