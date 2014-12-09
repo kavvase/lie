@@ -1,14 +1,22 @@
 package kavvase.lie.core.linalg
 
-case class Rational(numerator: Int, denominator: Int = 1)
+import scalaz.Order
+
+case class Rational(numerator: Int, denominator: Int = 1) {
+
+  require(denominator != 0)
+
+  def simplify: Rational = Rational.reduce(numerator, denominator)
+
+}
 
 object Rational {
 
-  def gcd(a: Int, b: Int): Int = {
+  private def gcd(a: Int, b: Int): Int = {
     if (b == 0) a else gcd(b, a % b)
   }
 
-  def reduce(a: Int, b: Int): Rational = {
+  private def reduce(a: Int, b: Int): Rational = {
     val d = gcd(a, b)
     val num = a / d
     val den = b / d
@@ -58,5 +66,7 @@ object Rational {
     }
 
   }
+
+  implicit def RationalOrder: Order[Rational] = Order.fromScalaOrdering
 
 }

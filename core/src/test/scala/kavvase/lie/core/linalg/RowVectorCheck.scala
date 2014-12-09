@@ -7,7 +7,7 @@ import scalaz.scalacheck.ScalazProperties.{functor, equal}
 
 class RowVectorCheck extends Spec {
 
-  implicit val arbitralyRowVector = Arbitrary {
+  implicit val arbitraryRowVector = Arbitrary {
     for {
       x <- Arbitrary.arbitrary[Int]
       y <- Arbitrary.arbitrary[Int]

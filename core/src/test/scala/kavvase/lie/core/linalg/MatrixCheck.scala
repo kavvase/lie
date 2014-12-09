@@ -7,7 +7,7 @@ import scalaz.scalacheck.ScalazProperties.{equal, functor}
 
 class MatrixCheck extends Spec {
 
-  implicit val arbitralyMatrix = Arbitrary {
+  implicit val arbitraryMatrix = Arbitrary {
     for {
       w <- Arbitrary.arbitrary[Int]
       x <- Arbitrary.arbitrary[Int]
