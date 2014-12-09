@@ -10,7 +10,9 @@ object Rational {
 
   def reduce(a: Int, b: Int): Rational = {
     val d = gcd(a, b)
-    Rational(a / d, b / d)
+    val num = a / d
+    val den = b / d
+    Rational(num * den.signum, den * den.signum)
   }
 
   implicit object RationalNumeric extends Numeric[Rational] {
