@@ -1,5 +1,9 @@
 package kavvase.lie.core
 
-import kavvase.lie.core.linalg.{Rational, RowVector}
+case class Weight(dynkinIndex: List[Int])
 
-case class Weight[G <: Lie](vector: RowVector[Rational])
+abstract class Freudenthal[G <: Lie](implicit algebra: LieAlgebra[G]) {
+
+  def multiplicity(weight: Weight): Int = ???
+
+}
