@@ -1,9 +1,13 @@
 package kavvase.lie.core
 
-case class Weight(dynkinIndex: List[Int])
+case class Weight(
+  dynkinIndex: List[Int],
+  level: Int,
+  degree: Int
+)
 
-abstract class Freudenthal[G <: Lie](implicit algebra: LieAlgebra[G]) {
+abstract class WeightSystem[G <: Lie](implicit algebra: LieAlgebra[G]) {
 
-  def multiplicity(weight: Weight): Int = ???
+  def weights(highestWeight: Weight): List[Weight] = ???
 
 }

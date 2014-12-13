@@ -6,9 +6,17 @@ sealed trait Vector[A] {
   val components: List[A]
 }
 
-case class RowVector[A](components: List[A]) extends Vector[A]
+case class RowVector[A](components: List[A]) extends Vector[A] {
 
-case class ColVector[A](components: List[A]) extends Vector[A]
+  val numCol = components.length
+
+}
+
+case class ColVector[A](components: List[A]) extends Vector[A] {
+
+  val numRow = components.length
+
+}
 
 object Vector {
 
@@ -45,15 +53,20 @@ trait VectorSyntax {
     import scala.math.Numeric.Implicits._
 
     def +(rhs: RowVector[A]): RowVector[A] = {
-      require(lhs.components.length == rhs.components.length, s"Size does not match between $lhs and $rhs.")
+      require(lhs.numCol == rhs.numCol, s"Size does not match between $lhs and $rhs.")
       RowVector((lhs.components, rhs.components).zipped.map(_ + _))
     }
 
     def -(rhs: RowVector[A]): RowVector[A] = - rhs + lhs
 
     def *(rhs: ColVector[A]): A = {
-      require(lhs.components.length == rhs.components.length, s"Size does not match between $lhs and $rhs.")
+      require(lhs.numCol == rhs.numRow, s"Size does not match between $lhs and $rhs.")
       (lhs.components, rhs.components).zipped.map(_ * _).sum
+    }
+
+    def *(rhs: Matrix[A]): RowVector[A] = {
+      require(lhs.numCol == rhs.rows.length, s"Size does not match between $lhs and $rhs.")
+      RowVector(rhs.transpose.rows.map(row => (row, lhs.components).zipped.map(_ * _).sum))
     }
 
     def unary_-() = RowVector(lhs.components.map(-_))
