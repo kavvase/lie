@@ -1,6 +1,6 @@
 package kavvase.lie
 
-import kavvase.lie.core.linalg.{VectorSyntax, MatrixSyntax}
+import kavvase.lie.core.linalg.{RationalSyntax, VectorSyntax, MatrixSyntax}
 
 package object core {
 
@@ -9,5 +9,7 @@ package object core {
   object matrix extends MatrixSyntax
 
   object vector extends VectorSyntax
+
+  object rational extends RationalSyntax
 
 }

@@ -70,3 +70,23 @@ object Rational {
   implicit def RationalOrder: Order[Rational] = Order.fromScalaOrdering
 
 }
+
+trait RationalSyntax {
+
+  implicit class IntToRational(numerator: Int) {
+
+    import scala.math.Numeric.Implicits._
+
+    def toRational: Rational = Rational(numerator)
+
+    def over(denominator: Int): Rational = Rational(numerator, denominator)
+
+    def +(rational: Rational): Rational = numerator.toRational + rational
+
+    def -(rational: Rational): Rational = numerator.toRational - rational
+
+    def *(rational: Rational): Rational = numerator.toRational * rational
+
+  }
+
+}
