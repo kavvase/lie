@@ -9,6 +9,8 @@ case class Power(exponents: Map[Base, Exponent]) {
 
   def simplify: Power = Power.reduce(exponents)
 
+  def toDouble: Double = Power.toDouble(exponents)
+
 }
 
 object Power {
@@ -18,6 +20,10 @@ object Power {
   type Base = Rational
 
   type Exponent = Rational
+
+  private def toDouble(exponents: Map[Base, Exponent]): Double = {
+    exponents.toList.foldLeft(1.0)((acc, a) => acc * math.pow(a._1.toDouble, a._2.toDouble))
+  }
 
   private def reduce(exponents: Map[Base, Exponent]): Power = {
     Power({
@@ -40,6 +46,26 @@ object Power {
     def append(f1: Power, f2: => Power): Power = {
       Power((f1.exponents unionWith f2.exponents)(_ + _)).simplify
     }
+
+  }
+
+}
+
+trait PowerSyntax {
+
+  implicit class PowerOps(lhs: Power) {
+
+    def *(rhs: Power): Power = lhs |+| rhs
+
+  }
+
+  implicit class RationalToPower(base: Rational) {
+
+    import kavvase.lie.core.rational._
+
+    def ^(exponent: Rational): Power = Power(Map(base -> exponent))
+
+    def ^(exponent: Int): Power = Power(Map(base -> exponent.toRational))
 
   }
 
